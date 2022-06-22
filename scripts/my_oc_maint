@@ -1,0 +1,86 @@
+#!/bin/bash
+######################################################################################################################################################
+# Objective:
+# This script is made to run the standard oc_maint in a Openshift container context
+# Author:
+# Fabrice MOYEN
+######################################################################################################################################################
+
+######################################################################################################################################################
+# VARIABLES
+
+Card=""
+
+
+######################################################################################################################################################
+# FUNCTIONS
+
+function usage
+{
+  echo
+  echo "===================================================================================================="
+  echo "`basename $0` Usage:"
+  echo "-------------------------"
+  echo
+  echo "This script is made to run the standard oc_maint tool in a Openshift container context"
+  echo
+  echo "  + The parameters below are optional"
+  echo
+  echo "  + -C <OpenCAPI Card position> : gets info about the provided card (if not provided, it will get info about the only card to which this container should have access)"
+  echo "  + -h                          : shows this usage info"
+  echo
+  echo "Example:"
+  echo "--------"
+  echo "`basename $0`"
+  echo "`basename $0` -C4"
+  echo
+  exit 0
+}
+
+
+######################################################################################################################################################
+# MAIN
+
+while getopts "C:h" option; do
+  case $option in
+    C)
+      Card=$OPTARG
+    ;;
+    h)
+      usage
+    ;;
+    *)
+      echo "not a specific option for `basename $0`, so pushing it to the standard oc_maint"
+    ;;
+  esac
+done
+
+Dir=`ls -d /sys/devices/pci*/*.1/ocxlfn*.1/ocxl 2>/dev/null` # Example: /sys/devices/pci0004:00/0004:00:00.1/ocxlfn.0004:00:00.1/ocxl
+DirCount=`echo $Dir | wc -w`
+IDs=`/usr/local/bin/get_card_id`
+IDsCount=`echo $IDs | wc -w`
+
+if [ $IDsCount -eq 0 ]; then
+  echo "No OpenCAPI Card detected"
+  exit 66
+fi
+
+if [ $IDsCount -eq 1 ]; then
+  if [[ $# -ne 0  &&  "$*" =~ "-C" ]]; then
+    echo "/opt/oc-accel/software/tools/oc_maint -v $*"
+    /opt/oc-accel/software/tools/oc_maint -v $*
+  else
+    echo "/opt/oc-accel/software/tools/oc_maint -v -C$IDs $*"
+    /opt/oc-accel/software/tools/oc_maint -v -C$IDs $*
+  fi
+
+else
+  if [[ $# -ne 0  &&  "$*" =~ "-C" ]]; then
+    echo "/opt/oc-accel/software/tools/oc_maint -v $*"
+    /opt/oc-accel/software/tools/oc_maint -v $*
+  else
+    echo "More than one OpenCAPI card detected. Please choose one card with the \"-C\" option (run \"my_oc_find_card\" tool to get the card position)"
+    echo -e "Card positions found: \c"
+    echo $IDs
+  fi
+fi
