@@ -7,7 +7,7 @@ metadata:
     app: oc-<USER>-<CARD>
     app.kubernetes.io/component: oc-<USER>-<CARD>
     app.kubernetes.io/instance: oc-<USER>-<CARD>
-    app.kubernetes.io/part-of: capiapp-app
+    app.kubernetes.io/part-of: capitest-app
     app.openshift.io/runtime-namespace: <NAMESPACE>
 spec:
   replicas: 1
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: oc-<USER>-<CARD>-pod
-          image: docker.io/fmoyen/capiapp:latest
+          image: docker.io/fmoyen/capitest:latest
           resources:
             limits:
               <CARD_REF>: 1 # requesting 1x <CARD_REF> card

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 ################################################################################################################
-# Script used for generating the docker CAPIApp Image and push it to the docker hub
+# Script used for generating the docker capitest Image and push it to the docker hub
 # Author: Fabrice MOYEN (IBM)
 
 
 ################################################################################################################
 # VARIABLES
 
-docker_repository="fmoyen/capiapp"
+docker_repository="fmoyen/capitest"
 ScriptDir=`realpath $0`
 ScriptDir=`dirname $ScriptDir`
 NoCache=""
@@ -24,7 +24,7 @@ function usage
   echo "`basename $0` Usage:"
   echo "-------------------------"
   echo
-  echo "Bash script used for generating the docker CAPIApp image and push it to the docker hub"
+  echo "Bash script used for generating the docker capitest image and push it to the docker hub"
   echo
   echo "  + The parameters below are optional"
   echo
@@ -41,8 +41,8 @@ function usage
   echo "===================================================================================================="
   echo "For generating the CAPPapp application, this script $0 will use following steps:"
   echo
-  echo " - Run docker command docker build -t [docker-repository]:[docker-tag] . to create a docker image of the new capiapp"
-  echo " - Run docker command docker tag -t [docker-repository]:[docker-tag] [docker-repository]:latest to create a docker image of the new capiapp with latest tag"
+  echo " - Run docker command docker build -t [docker-repository]:[docker-tag] . to create a docker image of the new capitest"
+  echo " - Run docker command docker tag -t [docker-repository]:[docker-tag] [docker-repository]:latest to create a docker image of the new capitest with latest tag"
   echo " - Check the new generating daemonset docker image with command docker images"
   echo " - Push the new docker image to a public dockerhub repository"
   echo
@@ -79,8 +79,8 @@ echo; echo "====================================================================
 echo "===================================================================================================="
 echo "For generating the CAPPapp application, this script $0 will use following steps:"
 echo
-echo " - Run docker command docker build -t [docker-repository]:[docker-tag] . to create a docker image of the new capiapp"
-echo " - Run docker command docker tag -t [docker-repository]:[docker-tag] [docker-repository]:latest to create a docker image of the new capiapp with latest tag"
+echo " - Run docker command docker build -t [docker-repository]:[docker-tag] . to create a docker image of the new capitest"
+echo " - Run docker command docker tag -t [docker-repository]:[docker-tag] [docker-repository]:latest to create a docker image of the new capitest with latest tag"
 echo " - Check the new generating daemonset docker image with command docker images"
 echo " - Push the new docker image to a public dockerhub repository"
 echo

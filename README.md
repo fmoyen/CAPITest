@@ -5,9 +5,9 @@ Develop and test a way to use a CAPI/openCAPI adapter in an Openshift App enviro
 You need to have the OpenCAPI_as_a_Service Device Plugin up and running
 (This device plugin will advertise the OpenCAPI cards available in the cluster, will allocate the OpenCAPI cards to the Pod requesting them, etc)
 
-## For generating the docker hub CAPIapp images, run the following script: Build-capiapp.sh
+## For generating the docker hub capitest images, run the following script: Build-capitest.sh
  --> It must be run on a Linux on Power system with development tools installed
-The Build-capiapp.sh script is here to generate the capiapp image (thanks to the Dockerfile) and push it into docker hub.
+The Build-capitest.sh script is here to generate the capitest image (thanks to the Dockerfile) and push it into docker hub.
 
 ## Way to use it:
 You need to start an OpenShift Pod running a container with this CAPITest docker image.
